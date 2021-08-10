@@ -4,11 +4,21 @@ const Create = () => {
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
     const [author, setAuthor] = useState('Mario');
+    const [isPending, setIsPending] = useState(false);
 
 const handleSubmit = (e) => {
     e.preventDefault();
+    setIsPending(true);
     const blog = { title, body, author };
-    console.log(blog);
+
+    fetch('http://localhost:8000/blogs', {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(blog)
+    }).then(() => {
+        console.log('new blog added');
+        setIsPending(false);
+    })
 }
 
     return ( 
@@ -47,7 +57,8 @@ const handleSubmit = (e) => {
                     </select>
                 </div>
                 <div className="">
-                    <button className="mx-auto block bg-blue-400 text-white p-2 rounded-lg font-semibold shadow-md hover:shadow-none hover:bg-blue-500" type="submit">Create Blog</button>
+                    {!isPending && <button className="mx-auto block bg-blue-400 text-white p-2 rounded-lg font-semibold shadow-md hover:shadow-none hover:bg-blue-500" type="submit">Create Blog</button>}
+                    {isPending && <button className="mx-auto block bg-blue-400 disabled:opacity-50 text-white p-2 rounded-lg font-semibold shadow-md hover:shadow-none opacity-50" disabled type="submit">Posting Blog...</button>}
                 </div>
             </form>
         </div>
