@@ -5,11 +5,17 @@ const Create = () => {
     const [body, setBody] = useState('');
     const [author, setAuthor] = useState('Mario');
 
+const handleSubmit = (e) => {
+    e.preventDefault();
+    const blog = { title, body, author };
+    console.log(blog);
+}
+
     return ( 
         <div className="create container">
             <h1 className="text-center text-4xl m-5 font-bold pb-3 border-gray-200 text-blue-400">Create Page</h1>
             {/* FORM */}
-            <form class="bg-white shadow-md rounded-lg mx-auto max-w-3xl w-4/5 p-4 py-6"action="submit">
+            <form className="bg-white shadow-md rounded-lg mx-auto max-w-3xl w-4/5 p-4 py-6" onSubmit={handleSubmit}>
                 <div className="mb-4">
                     <label className="block text-gray-700 text-lg font-semibold mb-2">
                         Title:
